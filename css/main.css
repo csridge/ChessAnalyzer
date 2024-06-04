@@ -1,6 +1,6 @@
 @font-face {
   font-family: typespace;
-  src: url(MonospaceTypewriter.ttf);
+  src: url(./MonospaceTypewriter.ttf);
 }
 *{
   text-align: center;
