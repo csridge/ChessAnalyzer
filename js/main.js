@@ -1,5 +1,5 @@
-# it does very lot of things
-# f you real
+// it does very lot of things
+// f you real
 let positions = 0;
 let cpuCount = 0
 let cpuCost = 0
