@@ -13,10 +13,9 @@ function updateUI(){
 function buyCPU(){
     if (positions >= cpuCost){
         positions -= cpuCost;
-        pps+=1;
-        cpuCount+=1;
+        pps+=1;cpuCount+=1
+        if(cpuCount%10==0&&cpuCount!=0){cpuCost*=10}
     }
-    if(cpuCount%10==0&&cpuCount!=0){cpuCost*=10}
 }
 setInterval(function gameLoop(){
     updateUI();
