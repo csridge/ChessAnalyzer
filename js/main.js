@@ -1,28 +1,25 @@
-// it does very lot of things
-// f you real
-let positions = 0;
-let cpuCount = 0
-let cpuCost = 0
-const positionsDisplay = document.getElementById('positions')
-const ppsDsiplay = document.getElementById('pps')
-let pps = 0
-const buyCPUBtn = document.getElementById('buycpu')
+let positions = 10;
+let cpuCount = 0;
+let cpuCost = 10;
+let pps = 0;
+let multiplier = 1;
 function updateUI(){
-    positionsDisplay.textContent = positions;
+    document.getElementById('positions').textContent = positions;
     document.getElementById('cpuCost').textContent = cpuCost;
     document.getElementById('cpuCount').textContent = cpuCount
-    document.getElementById ('pps').textContent = pps;
+    document.getElementById('pps').textContent=pps;
+    document.getElementById('mult').textContent=multiplier;
 }
 function buyCPU(){
     if (positions >= cpuCost){
-        positions - cpuCost;
-        cpuCost = Math.round(0.5*(cpuCost**1.15)+15)
-        pps+=Math.round(0.5*(pps**1.06)+4);
+        positions -= cpuCost;
+        pps+=1;
         cpuCount+=1;
     }
+    if(cpuCount%10==0&&cpuCount!=0){cpuCost*=10}
 }
 setInterval(function gameLoop(){
     updateUI();
-    positions += pps;
-    buyCPUBtn.addEventListener('click', buyCPU, false);
+    positions+=pps*multiplier;
+    document.getElementById('buycpu').addEventListener('click', buyCPU, false);
 },1000)
