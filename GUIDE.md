@@ -1,2 +1,0 @@
-You will start with 10 Numerous, and one available purchase to buy a single 1st Dimension. It produces Numerous every second. After that you can buy 2nd Dimension, it will raise the production of 1st Dimensions. It works for higher Dimensions. There are 6 Dimensions. There is also upgrades that can boost your progress and a softcap so your Numerous gain doesn't go too fast.
-Once you reach 1.79e308 Numerous, you will be able to unlock a new layer called "Natural"

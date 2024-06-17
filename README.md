@@ -1,1 +1,1 @@
-# TetrationalMadness
+# ChessAnalyzer

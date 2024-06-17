@@ -1,7 +1,22 @@
 @font-face {
   font-family: typespace;
-  src: url(./MonospaceTypewriter.ttf);
+  src: url(../MonospaceTypewriter.ttf);
 }
 *{
   text-align: center;
+  font-family: typespace;
+}
+.cpu{
+  display: grid;
+  grid-template-columns: 150px 150px 250px;
+  justify-content: space-between;
+}
+.stat #positions{
+  font-size: 1.8rem;
+}
+.stat #pps{
+  font-size: 1.4rem;
+}
+#upgradeBtn{
+  display: none;
 }
