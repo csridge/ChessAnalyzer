@@ -17,6 +17,13 @@
 .stat #pps{
   font-size: 1.4rem;
 }
+.unclickable{
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.75;
+  border-color: red;
+  border-radius: 5px;
+}
 #upgradeBtn{
-  display: none;
+  display: block;
 }
