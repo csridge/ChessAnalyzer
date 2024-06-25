@@ -7,17 +7,17 @@
     </head>
     <body>
         <div class="stat">
-            <p>You analyzed <span id="positions"></span> chess positions</p>
-            <p>You are analyzing <span id="pps"></span> positions per second</p>
+            <div id="positions"></div>
+            <div id="pps"></div>
         </div>
             
         <div class="cpu">
-            <div class="cpuCount"># of CPU: <span id="cpuCount"></span></div>
-            <div class="mult"><span id="mult"></span>x</div>
-            <button id="buycpu">Buy a CPU for your computer<br>Cost: <span id="cpuCost"></span></button>
+            <div id="cpuCount"></div>
+            <div id="mult"></div>
+            <button id="buycpu"></button>
         </div>
         <div class="upgrade">
-            <button class="unclickable" id="upgradeBtn">Reset all your positions, but your CPUs 2x stronger, and CPU cost will be ^1.25<br>Requires <span id="cpuUpdtReq"></span> CPUs</button>
+            <button class="disabled" id="booster"></button>
         </div>
         <script src="js/main.js"></script>
     </body>
