@@ -1,24 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="A game about a person trying to analyze all chess positions">
         <link rel="stylesheet" href="./css/main.css">
+        <link rel="stylesheet" href="./css/booster.css">
     </head>
     <body>
-        <div class="stat">
-            <div id="positions"></div>
-            <div id="pps"></div>
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'cpu')">CPU</button>
+            <button class="tablinks" onclick="openTab(event, 'upgrades')">Upgrades</button>
         </div>
-            
-        <div class="cpu">
-            <div id="cpuCount"></div>
-            <div id="mult"></div>
-            <button id="buycpu"></button>
+        <div id="cpu" class="tabcontent">
+            <div class="stat">
+                <div id="positions"></div>
+                <div id="pps"></div>
+            </div>
+            <div class="cpu">
+                <div id="cpuCount"></div>
+                <div id="mult"></div>
+                <button id="buycpu"></button>
+            </div>
+            <div class="pc-upgrade">
+                <div id="cpu-upgrade">
+                    <div id="boosterCount"></div>
+                    <button class="disabled" id="booster"></button>
+                </div>
+            </div>
         </div>
-        <div class="upgrade">
-            <button class="disabled" id="booster"></button>
+        <div id="upgrades" class="tabcontent">
+            <div id="u1">PLACEHOLDER</div>
         </div>
         <script src="js/main.js"></script>
+        <script src="js/pc-upgrade.js"></script>
+        <script src="js/tabs.js"></script>
     </body>
 </html>
