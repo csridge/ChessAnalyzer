@@ -1,0 +1,24 @@
+@font-face {
+    font-family: typespace;
+    src: url(../MonospaceTypewriter.ttf);
+}
+@font-face {
+    font-family: lucida;
+    src: url(../lucon.ttf)
+}
+* {
+    font-family: typespace;
+    background-color: rgb(12, 12, 12);
+    color: white;
+}
+button {
+    border-color: white;
+}
+.hidden {
+    display: none;
+}
+.locked {
+    border: 2px solid red;
+    background-color: lightgray;
+    pointer-events: none;
+}

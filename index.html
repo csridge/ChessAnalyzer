@@ -1,68 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="A game about a person trying to analyze all chess positions">
-        <link rel="stylesheet" href="./css/main.css">
-        <link rel="stylesheet" href="./css/pc-upgrade.css">
-        <link rel="stylesheet" href="./css/tab.css">
-    </head>
-    <body>
-        <h4 id="version-uncompleted-warning">WARNING: THIS VERSION HASN'T BEEN DONE YET. I'M CURRENTLY ONLY DESIGNING THE UI. PLAY AT YOUR OWN RISK!<div id='lazy' style="color: white; border-color: grey;">im lazy btw</div></h4>
-        <div class="tab">
-            <button class="tablinks" onclick="openTab(event, 'pc')">PC</button>
-            <button class="tablinks" onclick="openTab(event, 'upgrades')">Upgrades</button>
-            <button class="tablinks" onclick="openTab(event, 'options')">Options</button>
-            <button class="tablinks" onclick="openTab(event, 'achievements')">Achievements</button>
+<head>
+    <meta charset="UTF-8">
+    <title>Chess Analyzer</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="tab">
+        <button class="tablinks" data-tab="analyzer">Analyzer</button>
+        <button class="tablinks" data-tab="matteric">Matteric</button>
+        <button class="tablinks" data-tab="antimatter">Antimatter</button>
+    </div>
+
+    <div id="analyzer" class="tabcontent">
+        <div class="analysis" id="analysis-count">You have 0 Analysis</div>
+        <div class="analysis" id="analysis-per-sec">You are making 0 Analysis per second</div>
+        <div class="analysis" id="computer">
+            <button id="buy-computer-button">Buy a computer</button>
         </div>
-        <div id="pc" class="tabcontent">
-            <div class="subtab">
-                <button class="tablinks" onclick="openSubTab(event, 'cpu')">CPU</button>
-                <button class="tablinks" onclick="openSubTab(event, 'gpu')">GPU</button>
-                <button class="tablinks" onclick="openSubTab(event, 'manufactoring')">Manufactoring</button>
-            </div>
-            <div id="cpu" class="subtabcontent">
-                <div class="stat">
-                    <div id="positions"></div>
-                    <div id="pps"></div>
-                </div>
-                <div class="cpustats">
-                    <div id="cpuCount"></div>
-                    <div id="mult"></div>
-                    <button id="buycpu"></button>
-                </div>
-                <div class="pc-upgrade">
-                    <div id="cpu-upgrade">
-                        <div id="boosterCount"></div>
-                        <button class="disabled" id="booster"></button>
-                        <button class="disabled" id="memory-plus"></button>
-                    </div>
-                </div>
-            </div>
-            <div id="gpu" class="subtabcontent">
-                <button id="buygpu">Buy a GPU so you can analyze even faster</button>
-            </div>
-            <div id="manufactoring" class="subtabcontent">
-                <button id="auto-manufactoring">SECRET!</button>
-            </div>
-            <div id="memory" class="subtabcontent">
-                <div id="memory-left">SECRET!</div>
-            </div>
+        <div class="analysis" id="ai">
+            <button id="buy-ai-button">Buy an AI</button>
         </div>
-        <div id="upgrades" class="tabcontent">
-            <div id="u1">Code Optimization</div>
-            <div id="u2">Memory Optimization</div>
-        </div>
-        <div id="options" class="tabcontent">
-           <button id="savegame">Save your game</button>
-           <button id="loadgame">Load your game</button>
-        </div>
-        <div id="achievements" class="tabcontent"></div>
-        <script src="https://cdn.jsdelivr.net/npm/omega-num@latest/dist/OmegaNum.min.js"></script>
-        <script src="js/pc-upgrade.js"></script>
-        <script src="js/main.js"></script>
-        <script src="js/tabs.js"></script>
-        <script src="js/save.js"></script>
-    </body>
+        <div class="analysis hidden" id="go-matteric"><button>Reset all Analysis progress to go Matter</button></div>
+    </div>
+
+    <div id="matteric" class="tabcontent">
+        Coming soon...
+    </div>
+
+    <div id="antimatter" class="tabcontent">
+        Antimatter content here...
+    </div>
+    <div id="endgame" class="tabcontent hidden">You reached the endgame!<br>You can still play, but the game might be so capped.</div>
+    <script src="js/src/main.js"></script>
+    <script src="js/src/tabs.js"></script>
+    <script src="js/src/endgame.js"></script>
+</body>
 </html>
