@@ -6,7 +6,7 @@ let player = {
     stockfish: 0
 };
 
-const analysisDisp = document.querySelector('.game-header_analysis')
+const analysis_display = document.querySelector('.game-header_analysis')
 const buyBtn = document.querySelectorAll('.buy-button');
 const rows = document.querySelectorAll('.chatgpt-row');
 let costs = [5, 50, 500, 500000]
@@ -24,32 +24,32 @@ function buyGPT(tier) {
         updateUI();
     }
 }
+let lastTime = performance.now();
 
+function gameLoop(currentTime) {
+    const delta = (currentTime - lastTime) / 1000;
+    lastTime = currentTime;
+
+    // GPT tiers produce lower-tier GPTs smoothly
+    for (let tier = player.gpt.length - 1; tier > 0; tier--) {
+        player.gpt[tier - 1] += player.gpt[tier] * player.accuracy * delta;
+    }
+
+    // GPT-1 produces analysis
+    player.analysis += player.gpt[0] * player.accuracy * delta;
+
+    updateUI();
+    requestAnimationFrame(gameLoop);
+}
+
+requestAnimationFrame(gameLoop);
 
 function updateUI() {
     // Update Analysis
-    document.querySelector('.game-header_analysis').textContent = player.analysis;
-
-    // Loop through each GPT tier and update UI
-    player.gpt.forEach((amount, i) => {
-        const tier = i;
-        const nextRow = rows[tier + 1];
-        document.querySelector(`.gpt${tier + 1} .chatgpt_amount`).textContent = amount;
-        document.querySelector(`.gpt${tier + 1} .button-content div:nth-child(1) span`).textContent = amount;
-        if (player.analysis < getCost(tier)) {
-            document.querySelector(`.buy-button.gpt${tier + 1}`).classList.add('disabled')
-        }        
-        if (amount >= 10 && nextRow) {
-            nextRow.style.display = 'flex';
-        }
-        const cost = getCost(tier);
-        document.querySelector(`.gpt${tier + 1} .button-content div:nth-child(2) span`).textContent = cost;
-    });
+    document.querySelector('.game-header_analysis').textContent = player.analysis.toFixed(1);
     player.production = player.gpt[0] * player.accuracy
-    document.querySelector('.game-header_production').textContent = player.production
 
 }
-
 
 document.querySelectorAll('.buy-button').forEach(button => {
     button.addEventListener('click', () => {
@@ -58,9 +58,48 @@ document.querySelectorAll('.buy-button').forEach(button => {
         buyGPT(tier);
     });
 });
+// Updates production: higher GPT tiers produce lower GPT tiers,
+// and GPT-1 produces analysis.
+
+function updateGPTRow(tier, amount) {
+    // Get the cost for this tier.
+    const cost = getCost(tier);
+    
+    // Get the button element for the current GPT tier.
+    const btnSelector = `.buy-button.gpt${tier + 1}`;
+    const btn = document.querySelector(btnSelector);
+    
+    if (btn) {
+        if (player.analysis < cost) {
+            btn.classList.add('disabled');
+        } else {
+            btn.classList.remove('disabled');
+        }
+    }
+    
+    
+    // Get the GPT row element.
+    const rowSelector = `.gpt${tier + 1}`;
+    const row = document.querySelector(rowSelector);
+    
+    // If amount is 10 or more, try to unlock the next GPT row.
+    const rows = document.querySelectorAll('.chatgpt-row');
+    const nextRow = rows[tier + 1];
+    if (amount >= 10 && nextRow) {
+        nextRow.style.display = 'flex';
+    }
+    
+    // Update the cost display within the row.
+    const costEl = row ? row.querySelector('.button-content div:nth-child(2) span') : null;
+    if (costEl) {
+        costEl.textContent = cost;
+    }
+}
 
 window.onload = updateUI;
 setInterval(() => {
-    player.analysis += player.gpt.reduce((total, amount) => total + amount, 0) * player.accuracy; // Sum up all GPT productions
+    for (let i = 0; i < player.gpt.length; i++) {
+        updateGPTRow(i, player.gpt[i]);
+    }
     updateUI();
 }, 1000);
