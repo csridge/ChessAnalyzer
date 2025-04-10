@@ -78,39 +78,24 @@ document.querySelectorAll('.buy-button').forEach(button => {
 // and GPT-1 produces analysis.
 
 function updateGPTRow(tier, amount) {
-    // Get the cost for this tier.
     const cost = getCost(tier);
-    
-    // Get the button element for the current GPT tier.
-    const btnSelector = `.buy-button.gpt${tier + 1}`;
-    const btn = document.querySelector(btnSelector);
-    
+    const btn = document.querySelector(`.buy-button.gpt${tier + 1}`);
+    const row = document.querySelector(`.gpt${tier + 1}`);
+    const nextRow = document.querySelector(`.gpt${tier + 2}`);
+
     if (btn) {
-        if (player.analysis < cost) {
-            btn.classList.add('disabled');
-        } else {
-            btn.classList.remove('disabled');
-        }
+        if (player.analysis < cost) btn.classList.add('disabled');
+        else btn.classList.remove('disabled');
     }
-    
-    
-    // Get the GPT row element.
-    const rowSelector = `.gpt${tier + 1}`;
-    const row = document.querySelector(rowSelector);
-    
-    // If amount is 10 or more, try to unlock the next GPT row.
-    const rows = document.querySelectorAll('.chatgpt-row');
-    const nextRow = rows[tier + 1];
-    if (amount >= 10 && nextRow) {
-        nextRow.style.display = 'flex';
-    }
-    
-    // Update the cost display within the row.
-    const costEl = row ? row.querySelector('.button-content div:nth-child(2) span') : null;
-    if (costEl) {
-        costEl.textContent = cost;
+
+    if (amount >= 10 && nextRow) nextRow.style.display = 'flex';
+
+    if (row) {
+        const costEl = row.querySelector('.button-content div:nth-child(2) span');
+        if (costEl) costEl.textContent = cost;
     }
 }
+
 
 window.onload = updateUI;
 setInterval(() => {
