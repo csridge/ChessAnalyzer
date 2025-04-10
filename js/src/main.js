@@ -45,11 +45,27 @@ function gameLoop(currentTime) {
 requestAnimationFrame(gameLoop);
 
 function updateUI() {
-    // Update Analysis
-    document.querySelector('.game-header_analysis').textContent = player.analysis.toFixed(1);
-    player.production = player.gpt[0] * player.accuracy
+    // Update Analysis (smooth)
+    document.querySelector('.game-header_analysis').textContent = player.analysis.toFixed(2);
 
+    // Update Production
+    player.production = player.gpt[0] * player.accuracy;
+    document.querySelector('.game-header_production').textContent = player.production.toFixed(2);
+
+    // Update each GPT tier
+    player.gpt.forEach((amount, tier) => {
+        const row = document.querySelector(`.gpt${tier + 1}`);
+        const buyAmountSpan = row.querySelector('.chatgpt_amount');
+        const buyButtonSpan = row.querySelector('.button-content div:nth-child(1) span');
+
+        if (buyAmountSpan) buyAmountSpan.textContent = amount;
+        if (buyButtonSpan) buyButtonSpan.textContent = amount;
+
+        // Update GPT row (cost, visibility, and disabled state)
+        updateGPTRow(tier, amount);
+    });
 }
+
 
 document.querySelectorAll('.buy-button').forEach(button => {
     button.addEventListener('click', () => {
