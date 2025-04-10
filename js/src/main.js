@@ -1,89 +1,66 @@
-// Also called analysis.js but yeah idk
 let player = {
-    analysis: 10,
-    aps: 0,
-    computers: 0,
-    computerCost : 10,
-    ai : 0,
-    aiCost : 100
+    analysis: 5,
+    production: 0,
+    gpt: [0, 0, 0, 0],
+    accuracy: 0.5,
+    stockfish: 0
 };
-const buyComputerButton = document.getElementById('buy-computer-button');
-const buyAIButton = document.getElementById('buy-ai-button');
-let analysisCount = document.getElementById('analysis-count');
-let apsDiv = document.getElementById('analysis-per-sec');
-function updateDisplay() {
-        analysisCount.textContent = `You have ${player.analysis.toFixed(2)} Analysis`;
-        apsDiv.textContent = `You are making ${player.aps.toFixed(2)} Analysis per second`;
-        buyComputerButton.textContent = `Buy a computer (Cost: ${player.computerCost.toFixed(2)} Analysis)`;
-        buyAIButton.textContent = `Buy an AI (Cost: ${player.aiCost.toFixed(2)} Analysis)`
-        if (player.analysis < player.computerCost){
-            buyComputerButton.classList.add('locked')
-        } else {
-            buyComputerButton.classList.remove('locked')
-        }
-        if (player.analysis < player.aiCost){
-            buyAIButton.classList.add('locked')
-        } else {
-            buyComputerButton.classList.remove('locked')
-        }
+
+const analysisDisp = document.querySelector('.game-header_analysis')
+const buyBtn = document.querySelectorAll('.buy-button');
+const rows = document.querySelectorAll('.chatgpt-row');
+let costs = [5, 50, 500, 500000]
+function getCost(tier) {
+    const baseCost = costs[tier];
+    const upgrades = Math.floor(player.gpt[tier] / 10);
+    return baseCost * 8 ** upgrades;
 }
 
-function updateButtonStates() {
-    const buyComputerButton = document.getElementById('buyComputerButton');
-    const buyAIButton = document.getElementById('buyAIButton');
-
-    buyComputerButton.classList.toggle('locked', player.analysis < player.computerCost);
-    buyAIButton.classList.toggle('locked', player.analysis < player.aiCost);
-
-    buyComputerButton.disabled = player.analysis < player.computerCost;
-    buyAIButton.disabled = player.analysis < player.aiCost;
-}
-function buy(type) {
-    let cost;
-    let increment;
-    
-    switch (type) {
-        case "computer":
-            cost = player.computerCost;
-            increment = () => {
-                player.computers++;
-                player.aps = player.aps <= 0 ? player.aps + 1 : player.aps * 1.08;
-                player.computerCost *= 1.16;
-            };
-            break;
-        case "ai":
-            cost = player.aiCost;
-            increment = () => {
-                player.ai++;
-                player.aps *= 1.5;
-                player.aiCost *= 1.1;
-            };
-            break;
-        default:
-            console.log("Unknown purchase type");
-            return;
-    }
-
+function buyGPT(tier) {
+    const cost = getCost(tier);
     if (player.analysis >= cost) {
         player.analysis -= cost;
-        increment();
-        updateDisplay();
-        updateButtonStates();
-    } else {
-        console.log(`Not enough analysis to buy ${type}`);
+        player.gpt[tier]++;
+        updateUI();
     }
 }
-function matteric(){
-    if (player.analysis){}
-}
-setInterval(() => {
-    player.analysis += (player.aps)/33;
-    updateDisplay();
-    updateButtonStates();
-}, 33);
 
-let buyButton = document.getElementById('buy-computer-button');
-document.getElementById('buy-computer-button').addEventListener('click', () => buy("computer"));
-document.getElementById('buy-ai-button').addEventListener('click', () => buy("ai"));
-updateDisplay();
-updateButtonStates();
+
+function updateUI() {
+    // Update Analysis
+    document.querySelector('.game-header_analysis').textContent = player.analysis;
+
+    // Loop through each GPT tier and update UI
+    player.gpt.forEach((amount, i) => {
+        const tier = i;
+        const nextRow = rows[tier + 1];
+        document.querySelector(`.gpt${tier + 1} .chatgpt_amount`).textContent = amount;
+        document.querySelector(`.gpt${tier + 1} .button-content div:nth-child(1) span`).textContent = amount;
+        if (player.analysis < getCost(tier)) {
+            document.querySelector(`.buy-button.gpt${tier + 1}`).classList.add('disabled')
+        }        
+        if (amount >= 10 && nextRow) {
+            nextRow.style.display = 'flex';
+        }
+        const cost = getCost(tier);
+        document.querySelector(`.gpt${tier + 1} .button-content div:nth-child(2) span`).textContent = cost;
+    });
+    player.production = player.gpt[0] * player.accuracy
+    document.querySelector('.game-header_production').textContent = player.production
+
+}
+
+
+document.querySelectorAll('.buy-button').forEach(button => {
+    button.addEventListener('click', () => {
+        const gptClass = Array.from(button.classList).find(c => c.startsWith('gpt'));
+        const tier = parseInt(gptClass.replace('gpt', '')) - 1;
+        buyGPT(tier);
+    });
+});
+
+window.onload = updateUI;
+setInterval(() => {
+    player.analysis += player.gpt.reduce((total, amount) => total + amount, 0) * player.accuracy; // Sum up all GPT productions
+    updateUI();
+}, 1000);

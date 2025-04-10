@@ -1,39 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+<html>
     <title>Chess Analyzer</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <div class="tab">
-        <button class="tablinks" data-tab="analyzer">Analyzer</button>
-        <button class="tablinks" data-tab="matteric">Matteric</button>
-        <button class="tablinks" data-tab="antimatter">Antimatter</button>
-    </div>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/rows.css">
 
-    <div id="analyzer" class="tabcontent">
-        <div class="analysis" id="analysis-count">You have 0 Analysis</div>
-        <div class="analysis" id="analysis-per-sec">You are making 0 Analysis per second</div>
-        <div class="analysis" id="computer">
-            <button id="buy-computer-button">Buy a computer</button>
+    </script>
+    <body>
+        <div class="game-header">
+            <div>You have <span class="game-header_analysis">10</span> Analysis</div>
+            <div>You are gaining <span class="game-header_production">0</span> Analysis per second</div>
         </div>
-        <div class="analysis" id="ai">
-            <button id="buy-ai-button">Buy an AI</button>
+        <div class="chatgpt-container">
+            <div class="chatgpt-row gpt1">
+                <div class="chatgpt_name">GPT-1</div>
+                <div class="chatgpt_amount">0</div>
+                <button class="buy-button gpt1">
+                    <div class="button-content">
+                        <div>Buy <span>0</span></div>
+                        <div>Cost: <span id="cost">10</span> Analysis</div>
+                    </div>
+                </button>
+            </div>
+            <div class="chatgpt-row gpt2" style="display: none;">
+                <div class="chatgpt_name">GPT-2</div>
+                <div class="chatgpt_amount">0</div>
+                <button class="buy-button gpt2">
+                    <div class="button-content">
+                        <div>Buy <span>0</span></div>
+                        <div>Cost: <span id="cost">10</span> Analysis</div>
+                    </div>
+                </button>
+            </div>
+            <div class="chatgpt-row gpt3" style="display: none;">
+                <div class="chatgpt_name">GPT-3</div>
+                <div class="chatgpt_amount">0</div>
+                <button class="buy-button gpt3">
+                    <div class="button-content">
+                        <div>Buy <span>0</span></div>
+                        <div>Cost: <span id="cost">10</span> Analysis</div>
+                    </div>
+                </button>
+            </div>
+            <div class="chatgpt-row gpt4" style="display: none;">
+                <div class="chatgpt_name">GPT-4</div>
+                <div class="chatgpt_amount">0</div>
+                <button class="buy-button gpt4">
+                    <div class="button-content">
+                        <div>Buy <span>0</span></div>
+                        <div>Cost: <span id="cost">5</span> Analysis</div>
+                    </div>
+                </button>
+            </div>
         </div>
-        <div class="analysis hidden" id="go-matteric"><button>Reset all Analysis progress to go Matter</button></div>
-    </div>
-
-    <div id="matteric" class="tabcontent">
-        Coming soon...
-    </div>
-
-    <div id="antimatter" class="tabcontent">
-        Antimatter content here...
-    </div>
-    <div id="endgame" class="tabcontent hidden">You reached the endgame!<br>You can still play, but the game might be so capped.</div>
+        <div class="prestige-container">
+            <div class="prestige-container_brilliant">
+                <h4>Brilliant Move (0)</h4>
+                <span>Requires 20 GPT-2</span>
+                <button class="gpt-reset disabled">Reset your Analysis and GPTs, but increase accuracy by 2%(multiplicative)</button>
+            </div>
+        </div>
+    </body>
     <script src="js/src/main.js"></script>
-    <script src="js/src/tabs.js"></script>
-    <script src="js/src/endgame.js"></script>
-</body>
 </html>

@@ -1,0 +1,31 @@
+.chatgpt-row {
+    display: flex;
+    align-items: center; /* Align items vertically */
+    justify-content: space-between; /* Distribute items */
+    width: 100%; /* Adjust width as needed */
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    color: white;
+}
+
+.chatgpt_name {
+    flex: 1; /* Takes up available space */
+    font-weight: bold;
+}
+
+.chatgpt_amount {
+    flex: 0.5; /* Less space than name */
+    text-align: center;
+}
+
+.buy-button {
+    flex: 0.8; /* Button grows */
+    background-color: #008000;
+    color: white;
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}

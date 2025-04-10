@@ -2,23 +2,21 @@
     font-family: typespace;
     src: url(../MonospaceTypewriter.ttf);
 }
-@font-face {
-    font-family: lucida;
-    src: url(../lucon.ttf)
-}
-* {
+body {
     font-family: typespace;
-    background-color: rgb(12, 12, 12);
-    color: white;
+    background-color: black;
+    color: white
+}
+span.game-header_analysis{
+    font-size: 25pt;
+    color: green;
+}
+div.game-header{
+    text-align: center;
 }
 button {
-    border-color: white;
+    font-family: typespace;
 }
-.hidden {
-    display: none;
-}
-.locked {
-    border: 2px solid red;
-    background-color: lightgray;
-    pointer-events: none;
+.disabled {
+    opacity: 0.7;
 }
